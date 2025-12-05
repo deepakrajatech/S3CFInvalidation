@@ -1,47 +1,16 @@
 version: 0.2
 
-env:
-  variables:
-    S3_BUCKET: "kkdtest-2"
-
 phases:
   install:
-    runtime-versions:
-      python: 3.9
     commands:
-      - echo Installing AWS CLI v2 if needed
-      - pip install --upgrade awscli
-
+      - echo "Install phase started"
+      - python --version
   build:
     commands:
-      - echo "Building project (if applicable)"
-      # If you have a build step, run it, e.g. npm install && npm run build
-      # - npm ci
-      # - npm run build
-
-  post_build:
-    commands:
-      - echo "Syncing files to S3 with MIME detection"
-      - aws s3 sync ./dist s3://$S3_BUCKET --delete
-      - echo "Ensuring HTML/CSS/JS metadata are correct (replace metadata if needed)"
-      - |
-        for file in $(find dist -type f -name '*.html'); do
-          key=$(echo "$file" | sed 's|dist/||')
-          aws s3 cp "$file" "s3://$S3_BUCKET/$key" --content-type "text/html" --metadata-directive REPLACE
-        done
-      - |
-        for file in $(find dist -type f -name '*.css'); do
-          key=$(echo "$file" | sed 's|dist/||')
-          aws s3 cp "$file" "s3://$S3_BUCKET/$key" --content-type "text/css" --metadata-directive REPLACE
-        done
-      - |
-        for file in $(find dist -type f -name '*.js'); do
-          key=$(echo "$file" | sed 's|dist/||')
-          aws s3 cp "$file" "s3://$S3_BUCKET/$key" --content-type "application/javascript" --metadata-directive REPLACE
-        done
-      - echo "Finished upload"
+      - echo "Build phase started"
+      - echo "Running Hello World program..."
+      - python hello.py
 
 artifacts:
   files:
     - '**/*'
-  base-directory: dist
