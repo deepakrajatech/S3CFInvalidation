@@ -1,15 +1,29 @@
 version: 0.2
 
+env:
+  variables:
+    S3_BUCKET: "kkdtest-2"    # CHANGE THIS
+
 phases:
   install:
     commands:
-      - echo "Install phase started"
-      - python --version
+      - echo "Install step completed"
   build:
     commands:
-      - echo "Build phase started"
-      - echo "Running Hello World program..."
-      - python hello.py
+      - echo "Build step (run your build commands if needed)"
+      # Example: npm commands (optional)
+      # - npm install
+      # - npm run build
+  post_build:
+    commands:
+      - echo "Uploading index.html"
+      - aws s3 cp ./index.html s3://kkdtest-2/index.html --content-type "text/html"
+
+      - echo "Uploading CSS"
+      - aws s3 cp ./style.css s3://kkdtest-2/index.html--content-type "text/css"
+
+      - echo "Uploading JS"
+      - aws s3 cp ./app.js s3://kkdtest-2/index.html --content-type "application/javascript"
 
 artifacts:
   files:
