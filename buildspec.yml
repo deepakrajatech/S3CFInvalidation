@@ -17,7 +17,7 @@ phases:
   post_build:
     commands:
       - echo "Uploading index.html"
-      - aws s3 cp ./index.html s3://kkdtest-1/index.html --content-type "text/html"
+      - aws s3 cp ./index.html s3://kkdtest-2/index.html --content-type "text/html"
 
 artifacts:
   files:
