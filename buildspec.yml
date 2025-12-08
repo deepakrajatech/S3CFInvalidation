@@ -19,12 +19,6 @@ phases:
       - echo "Uploading index.html"
       - aws s3 cp ./index.html s3://kkdtest-2/index.html --content-type "text/html"
 
-      - echo "Uploading CSS"
-      - aws s3 cp ./style.css s3://kkdtest-2/index.html--content-type "text/css"
-
-      - echo "Uploading JS"
-      - aws s3 cp ./app.js s3://kkdtest-2/index.html --content-type "application/javascript"
-
 artifacts:
   files:
     - '**/*'
